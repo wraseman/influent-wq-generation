@@ -28,4 +28,4 @@ There are five different scripts that make up the analysis in this repository:
 Each script creates a function that is saved to `./lib` and is loaded be loaded by `run_all_scripts.R`. If any changes are made to the above scripts, they need to be run and reloaded by `run_all_scripts.R` to redo the analysis.
 
 ## Data
-Two datasets are included in the analysis. The first is a water quality dataset of the Cache la Poudre River from the City of Fort Collins Utility. The second dataset is not a water quality dataset, rather it is a record of temperature and precipitation, but is used as a reference because it is a long multivariate dataset.  
+Two datasets are included in the analysis. The first is a water quality dataset of the Cache la Poudre River from the City of Fort Collins Utility. This dataset has been cleaned (as described in `01_import_clean.R`) and missing values have been interpolated (as described in `02_create_ts.R`). The second dataset is not a water quality dataset, rather it is a record of temperature and precipitation, but is used as a reference because it is a long multivariate dataset. 
