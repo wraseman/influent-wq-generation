@@ -10,11 +10,11 @@ All dependencies are freely and openly available:
 
 ## Running the code
 - Download or clone this GitHub repository. If you've downloaded the repo, unzip the directory.
-- Navigated to the repository, and open the .Rproj file.
+- Navigate to the repository, and open the .Rproj file.
 - Open `run_all_scripts.R` in RStudio and click "Source".
-- Wait for simulations to run: it will take a couple hours.
+- Wait for simulations to run: it may take several hours.
 
-To reduce computation time, you can edit the number of simulations (default is 500) by altering `nsims` before running `run_all_scripts.R`
+To reduce computation time, you can edit the number of simulations (default is 2500) by altering `nsims` before running `run_all_scripts.R`
 
 ## Individual scripts
 There are five different scripts that make up the analysis in this repository:
@@ -28,4 +28,4 @@ There are five different scripts that make up the analysis in this repository:
 Each script creates a function that is saved to `./lib` and is loaded be loaded by `run_all_scripts.R`. If any changes are made to the above scripts, they need to be run and reloaded by `run_all_scripts.R` to redo the analysis.
 
 ## Data
-Two datasets are included in the analysis. The first is a water quality dataset of the Cache la Poudre River from City of Fort Collins Utilities. The second dataset is not a water quality dataset, rather it is a record of temperature and precipitation, but is used as a reference because it is a long multivariate dataset.  
+Two datasets are included in the analysis. The first is a water quality dataset of the Cache la Poudre River from the City of Fort Collins Utility. The second dataset is not a water quality dataset, rather it is a record of temperature and precipitation, but is used as a reference because it is a long multivariate dataset.  
