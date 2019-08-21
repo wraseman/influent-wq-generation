@@ -284,7 +284,10 @@ simulate_kNN <- function(nsims=100, innov=TRUE, threshold,
   }
   
   for (i in 1:nvars) {
-    model.type <- str_c("kNN", str_c("innov", "-", innov), sep="_")
+    model.type <- str_c("kNN", str_c("nsims", "-", nsims),
+                        str_c("innov", "-", innov), 
+                        str_c("stand", "-", standardize),
+                        sep="_")
     write.path <- str_c("./data/source-water/04_simulate_kNN/", model.type, 
                         "_", 
                         data.type,

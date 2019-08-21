@@ -49,7 +49,10 @@ visualize_statistics <- function(innov, data.type) {
   
   ## read in data for each variable
   for (i in 1:nvars) {
-    model.type <- str_c("kNN", str_c("innov", "-", innov), sep="_")
+    model.type <- str_c("kNN", str_c("nsims", "-", nsims),
+                        str_c("innov", "-", innov), 
+                        str_c("stand", "-", standardize),
+                        sep="_")
     read.path <- str_c("./data/source-water/04_simulate_kNN/", model.type, 
                        "_", 
                        data.type,
