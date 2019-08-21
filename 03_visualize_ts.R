@@ -4,7 +4,7 @@
 # clear environment
 rm(list=ls()) 
 
-# visualize_ts <- function(additional_plots=FALSE) {
+visualize_ts <- function(additional_plots=FALSE) {
   
   # load packages
   library(tidyverse)  # modern R packages: ggplot2, dplyr, readr, etc.
@@ -105,10 +105,10 @@ rm(list=ls())
     
     ggx11_plots
   }
-# }
+}
 
 # save function
-# save("visualize_ts", file="./lib/visualize_ts.RData")
+save("visualize_ts", file="./lib/visualize_ts.RData")
 
 # run script
 # visualize_ts() # uncomment to run script
