@@ -121,33 +121,50 @@ import_clean <- function(show_plots=FALSE) {
   if (show_plots == TRUE) {
     ## plot Q-Q plots of the data (warning: takes quite a bit of time to plot)
     ggplot(wq2_df, aes(sample=pH_intake)) +
-      stat_qq()  ## suspicious values at 14.0 (try keeping only 6 < pH < 10)
+      stat_qq()  ## suspicious values at 14.0 and below 6.0
     
     ggplot(wq2_df, aes(sample=pH_plant)) +
-      stat_qq()  ## suspicious values at 14.0 (try keeping only 6 < pH < 10)
+      stat_qq()  ## suspicious values at 14.0 and below 6.0 
     
     ggplot(wq2_df, aes(sample=temp_intake)) +
       stat_qq()  ## no suspicious values
     
     ggplot(wq2_df, aes(sample=temp_plant)) +
       stat_qq()  # suspicious repeated values at 30 deg C (try eliminating values > 28)
+    
+    # view time series of suspicious values 
+    ## plant intake: 2014-09-30
+    ggplot(data=filter(wq2_df, date==as.Date("2014-09-30")),  
+                  aes(x=datetime, y=pH_intake)) +
+      geom_point()
+    
+    ## plant intake: 2013-12-15
+    ggplot(data=filter(wq2_df, date==as.Date("2013-12-16")),  
+           aes(x=datetime, y=pH_plant)) +
+      geom_point()
+    
+    ## plant intake: 2013-12-18
+    ggplot(data=filter(wq2_df, date==as.Date("2013-12-18")),  
+           aes(x=datetime, y=pH_plant)) +
+      geom_point()
   }
+  
   
   ## based on results, remove suspicious values
   ### pH at intake
-  filter(wq2_df, (pH_intake < 6)|(pH_intake > 11))
-  wq2_df <- mutate(wq2_df, pH_intake=if_else((pH_intake < 6)|(pH_intake > 11), NA_real_, pH_intake))
+  filter(wq2_df, (pH_intake < 5.5)|(pH_intake > 13.5))
+  wq2_df <- mutate(wq2_df, pH_intake=if_else((pH_intake < 5.5)|(pH_intake > 13.5), NA_real_, pH_intake))
   
   ### pH at plant
-  filter(wq2_df, (pH_plant < 6)|(pH_plant > 11))
-  wq2_df <- mutate(wq2_df, pH_plant=if_else((pH_plant < 6)|(pH_plant > 11), NA_real_, pH_plant))
+  filter(wq2_df, (pH_plant < 5.5)|(pH_plant > 13.5))
+  wq2_df <- mutate(wq2_df, pH_plant=if_else((pH_plant < 5.5)|(pH_plant > 13.5), NA_real_, pH_plant))
   
   ### temp at intake
   # no suspicious values!
   
   ### temp at plant
-  filter(wq2_df, temp_plant > 28)  # all 30.0 deg C. seems like an error
-  wq2_df <- mutate(wq2_df, temp_plant=if_else(temp_plant > 28, NA_real_, temp_plant))
+  filter(wq2_df, temp_plant > 28)  # all 30.0 deg C. seems like an error (look at the differential between intake and plant temp)
+  wq2_df <- mutate(wq2_df, temp_plant=if_else(temp_plant == 30, NA_real_, temp_plant))
   
   ## max/min values for each column
   summarize_all(wq2_df, funs(max(., na.rm=TRUE)))
@@ -176,7 +193,7 @@ import_clean <- function(show_plots=FALSE) {
     if (show_plots == TRUE) print(p)
   }
   ## notice that there are difference in between the "intake" and "plant" locations 
-  ## for consistency in analysis, just choose to use "plant" data
+  ## for consistency in analysis, we choose to use "plant" data
   
   # aggregate to monthly
   ## aggregate water quality #2 to monthly mean
