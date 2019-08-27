@@ -1,4 +1,7 @@
 .Rproj.user
 .Rhistory
-.RData
+*.RData
 .Ruserdata
+*.out
+*.bash
+*.rds
