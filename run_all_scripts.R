@@ -9,11 +9,11 @@ rm(list=ls())
 # library(beepr)  # to notify when simulation is done
 
 # load user-defined functions for each step of the workflow
-load("./lib/import_clean.Rdata")
-load("./lib/create_ts.Rdata")
-load("./lib/visualize_ts.Rdata")
-load("./lib/simulate_kNN.Rdata")
-load("./lib/visualize_statistics.Rdata")
+load("./lib/import_clean.RData")
+load("./lib/create_ts.RData")
+load("./lib/visualize_ts.RData")
+load("./lib/simulate_kNN.RData")
+load("./lib/visualize_statistics.RData")
 
 # simulation parameters
 nsims <- 2500
