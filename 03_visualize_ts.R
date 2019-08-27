@@ -35,23 +35,6 @@ visualize_ts <- function(additional_plots=FALSE) {
   ## note: must post-process this figure to add shaded regions associated with interpolated values
   ##       because I could not find a way to do this in a reproducible manner. 
   
-  # plot autocorrelation function (ACF) and partial autocorrelation function(PACF) to determine appropriate lag
-  for (i in 1:ncol(wq.ts)) {
-    p.acf <- ggAcf(wq.ts[,i]) +
-      ggtitle(colnames(wq.fullnames.ts)[i]) 
-    
-    p.pacf <- ggPacf(wq.ts[,i]) +
-      ggtitle(colnames(wq.fullnames.ts)[i]) 
-    
-    tiff(filename = str_c("./figures/figure-acf-pacf_", i, ".tiff"), 
-         height = 12, width = 17, units = 'cm', 
-         compression = "lzw", res = 600)
-    
-    grid.arrange(p.acf, p.pacf, nrow = 2)
-    
-    dev.off()
-  }
-  
   # show additional plots about time series
   if (additional_plots==TRUE) {
     
