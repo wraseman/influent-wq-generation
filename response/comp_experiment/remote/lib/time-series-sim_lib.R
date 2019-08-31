@@ -241,7 +241,7 @@ combine_obs_sim <- function(y, data) {
   return(full.df)
 }
 
-viz_obs_sim <- function(y, data, title="", outlier.alpha=NULL) {
+viz_obs_sim <- function(y, data, title="") {
   
   # purpose: create plot of simulated and observed statistics for univariate time series
   # inputs:
@@ -260,7 +260,7 @@ viz_obs_sim <- function(y, data, title="", outlier.alpha=NULL) {
     full.df <- combine_obs_sim(y, data)
     
     p <- ggplot(aes(x=month, y=value, fill=obs_sim), data=full.df) +
-      geom_boxplot(outlier.size=0.5, outlier.alpha = outlier.alpha) +
+      geom_boxplot(outlier.size=0.5) +
       ggtitle(label=title) +
       xlab('month') +
       scale_fill_manual(values=c("#FF9999", "#FFFFFF"))
@@ -696,46 +696,4 @@ ggacf_matrix <- function(data) {
   
   n.wqvar <- ncol(data)
   grid.arrange(grobs = ccf_list, nrow=n.wqvar, ncol=n.wqvar) %>% print
-}
-
-read_obs_sim_df <- function(obs.path, sim.path)
-{
-  # purpsose: create a combined obs and simulated dataframe with columns: value | month | obs_sim
-  # inputs:
-  #   obs.path: file path to observed multivariate time series data
-  #   sim.path: file path to simulated data (data frame with columns ???)
-  # return: combined dataframe
-  
-  # read in observed data (format: multivariate time series)
-  obs.ts <- readr::read_rds(obs.path)
-  obs.ts <- obs.ts[,wq.var]
-  
-  # read in simulated data (format: dataframe with the following columns - value | month | year | sim )
-  sim.df <- read_rds(sim.path) 
-  
-  # reformat simulated 
-  sim.df <- sim.df %>% 
-    as_tibble %>%  # convert dataframe to tibble 
-    select(value, month) %>%  # keep only the value and month
-    mutate(obs_sim = "sim") 
-  
-  # reformat observed data to match simulated data
-  obs.matrix <- matrix(data = NA, nrow = length(obs.ts), ncol = ncol(sim.df))
-  colnames(obs.matrix) <- colnames(sim.df)
-  for (i in 1:length(obs.ts)) {
-    month = i %% 12  
-    if(month == 0) {
-      month = 12
-    }
-    obs.matrix[i, "month"] <- month
-    obs.matrix[i, "value"] <- obs.ts[i]
-  }
-  obs.df <- as_tibble(obs.matrix) %>%
-    mutate(obs_sim = "obs")
-  
-  # create combined dataframe with observed and simulated data with columns "value", "month", "obs_sim"
-  comb.df <- rbind(obs.df, sim.df)
-  
-  # return dataframe
-  return(comb.df)
 }
