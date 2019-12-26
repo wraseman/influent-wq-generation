@@ -1,6 +1,9 @@
 # Stochastic influent water quality generation
 Code and data for implementing a *k* nearest neighbor (k-NN) bootstrap resampling approach for generating influent time series for water treatment.
 
+## Reference
+Raseman, W.J., Rajagopalan, B., Kasprzyk, J.R., Kleiber, W., 2020. *Nearest neighbor time series bootstrap for generating influent water quality scenarios* Stochastic Environmental Research and Risk Assessment. DOI: 10.1007/s00477-019-01762-3
+
 ## Dependencies
 All dependencies are freely and openly available:
 
